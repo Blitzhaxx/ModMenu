@@ -10,9 +10,11 @@
   "author": "Blitzhax <begamer2.00@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "adm-zip": "^0.5.9",
     "electron": "^17.0.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "superagent": "^7.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
