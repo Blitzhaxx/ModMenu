@@ -1,5 +1,20 @@
 import React from "react";
-
+const { api } = window;
+import { useState } from "react";
 export default function App() {
-  return <div>react test</div>;
+  const [ee,setBoolean] = useState("gnrghrlg")
+  
+  function execute() {
+    api.send("install");
+  }
+  function received() {
+    setBoolean("yes")
+  }
+  api.recieve('cabt',(event)=>{
+    received()
+   
+  })
+  return( <>
+   <button onClick={execute}>{ee}</button>
+  </>)
 }
