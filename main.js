@@ -1,8 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const request = require('superagent')
-const fs = require('fs')
-const admZip = require('adm-zip')
+const algo = require('./src/js/install_algorithm')
 
 let mainWindow;
 const isDev = !app.isPackaged;
@@ -17,48 +15,22 @@ function createWindow() {
   });
 
   mainWindow.loadFile("index.html");
-}
+} /*
 if (isDev) {
   require("electron-reload")(__dirname, {
     electron: path.join(__dirname, "node_modules", ".bin", "electron"),
   });
-}/*
-//download
-request.get('https://github.com/Blitzhaxx/scanercamo/archive/refs/heads/main.zip')
-.on('error',function(error) {
-  console.log(error)
-}).pipe(fs.createWriteStream('modfolder.zip')).on('finish',function(){
-//unzip
-const zip = new admZip('modfolder.zip');
-zip.extractAllTo('./downloaded/',true)
-//delete zip
-fs.unlink('modfolder.zip', (err)=>{if (err) console.error(err)});
-console.log('zip deleted');
-})*/
+}
+*/
+const url =
+  "https://github.com/Blitzhaxx/scanercamo/archive/refs/heads/main.zip";
+const mod_name = "scanercamo";
+const cpath = path.join(__dirname, "downloaded", `${mod_name}-main`);
 
-
-ipcMain.on('install',()=>{
-  //download
-  console.log('start download');
-request.get('https://github.com/Blitzhaxx/scanercamo/archive/refs/heads/main.zip')
-.on('error', function (error) {
-  console.log(error);
-}).pipe(fs.createWriteStream('modfolder.zip')).on('finish', function () {
-  //unzip
-  console.log('unzip')
-  const zip = new admZip('modfolder.zip');
-  zip.extractAllTo('./downloaded/', true);
-  //delete zip
-  fs.unlink('modfolder.zip', (err) => {
-    if (err)
-      console.error(err);
-  });
-  console.log('zip deleted');
-  mainWindow.webContents.send('cabt');
-})
-
-})
-
+ipcMain.on("install", async () => {
+await algo.install(url,cpath)
+mainWindow.webContents.send('cabt');
+});
 
 
 app.whenReady().then(createWindow);

@@ -10,7 +10,7 @@ export default function App() {
   function received() {
     setBoolean("yes")
   }
-  api.recieve('cabt',(event)=>{
+  api.recieve('cabt',()=>{
     received()
    
   })
