@@ -15,27 +15,27 @@ function createWindow() {
   });
 
   mainWindow.loadFile("index.html");
-} /*
+} 
 if (isDev) {
   require("electron-reload")(__dirname, {
     electron: path.join(__dirname, "node_modules", ".bin", "electron"),
   });
-}*/
+}
 
 const url =
-  "https://github.com/Blitzhaxx/scanercamo/archive/refs/heads/main.zip";
-const mod_name = "scanercamo";
-const cpath = path.join(__dirname, "downloaded", `${mod_name}-main`);
+  "https://github.com/Blitzhaxx/leg_69/archive/refs/heads/main.zip";
+const mod_name = "leg_69";
+const basePath = "C:/Users/jarno/OneDrive/Bureaublad/files/atest/"
+const cpath = path.join("C:/Users/jarno/OneDrive/Bureaublad/files/atest/", `${mod_name}-main`);
+const wotb = "C:/Program Files (x86)/Steam/steamapps/common/World of Tanks Blitz - Copy"
 
-ipcMain.on("install", async () => {
-  
-const an = await algo.install(url,cpath)
+ipcMain.on("install", async () => {  
+await algo.install(url,basePath,cpath,mod_name,wotb)
 
 const wait = ()=>{
-  if (an)
-  mainWindow.webContents.send('cabt')
+  if (algo.getStatus()){
+  mainWindow.webContents.send('cabt')}
   else {
-  console.log('again')
   setTimeout(wait,1500)
   }
 }
